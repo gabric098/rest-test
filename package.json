@@ -1,20 +1,19 @@
 {
     "name": "rest-test",
-    "version": "1.0.1",
+    "version": "1.0.0",
     "private": true,
     "scripts": {
         "start": "node server"
     },
 
     "dependencies": {
-        "restify": "2.6.x",
-        "nconf": "0.6.x",
-        "bunyan": "0.22.x",
-        "passport": "~0.2.0",
-        "mysql": "~2.1.1",
-        "sequelize": "~1.7.0",
-        "jsender": "~0.0.1",
+        "restify": "~3.0.3",
+        "nconf": "~0.7.1",
+        "bunyan": "~1.4.0",
+        "mysql": "~2.7.0",
+        "sequelize": "~3.3.2",
+        "jsender": "~0.0.6",
         "restify-validator": "~0.3.1",
-        "lodash": "*"
+        "lodash": "^3.10.0"
     }
 }
