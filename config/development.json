@@ -1,0 +1,23 @@
+{
+    "app": {
+        "name": "rest-test"
+    },
+    "server": {
+        "port": 3000,
+        "name": "localhost",
+        "defaultVersion": "1.0.0",
+        "acceptable": [ "application/json" ]
+    },
+    "logging": {
+        "name": "AuditLogging",
+        "dir": "./logs/"
+    },
+    "database" : {
+        "host" : "localhost",
+        "database" : "parkitappdb",
+        "port" : "3306",
+        "user" : "root",
+        "password" : "",
+        "dialect": "mysql"
+    }
+}
