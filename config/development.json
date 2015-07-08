@@ -14,10 +14,10 @@
     },
     "database" : {
         "host" : "localhost",
-        "database" : "parkitappdb",
-        "port" : "3306",
+        "database" : "dod_dev",
+        "port" : "8889",
         "user" : "root",
-        "password" : "",
+        "password" : "root",
         "dialect": "mysql"
     }
 }

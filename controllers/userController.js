@@ -3,7 +3,7 @@
  * Date: 3/29/14
  */
 
-var usersOrm = require('./../orm/usersOrm.js');
+var promotionsOrm = require('./../orm/promotionsOrm.js');
 
 exports.getUser = function (req, res) {
 
@@ -14,7 +14,7 @@ exports.getUser = function (req, res) {
         return;
     }
 
-    usersOrm.findUserById(req.params["id"], function (user) {
+    promotionsOrm.findPromotionById(req.params["id"], function (user) {
         console.log(user);
         res.success(user);
     })
