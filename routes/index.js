@@ -15,6 +15,14 @@ module.exports.init = function (server) {
     });
 
     //user
-     server.get('/promotions/:id', promotionController.getPromotion);
+    server.get('/promotions', promotionController.getActivePromotions);
+
+    server.get('/promotions/:id', promotionController.getPromotion);
+
+    server.post('/promotions', promotionController.createPromotion);
+
+    server.del('/promotions/:id', promotionController.deletePromotion);
+
+    server.put('/promotions/:id', promotionController.updatePromotion);
 
 };
