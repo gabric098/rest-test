@@ -47,7 +47,8 @@ var plugins = [
     restify.bodyParser(),
     restify.gzipResponse(),
     jsender(),
-    restifyValidator];
+    restifyValidator
+    ];
 
 
 server.use(plugins);

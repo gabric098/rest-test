@@ -19,8 +19,11 @@ var promotionsORM = sequelize.define('promotion', {
 });
 
 
-module.exports.findPromotionById = function (id, callback) {
-    promotionsORM.find({where: {id: id}}).success(function (promotion) {
-        callback(promotion);
+module.exports.findPromotionById = function (id, sucCallback, errCallback) {
+    promotionsORM.findAll({where: {id: id}})
+        .then(function (promotion) {
+            sucCallback(promotion);
+    }, function (reason) {
+            errCallback(reason);
     });
 }

@@ -1,9 +1,4 @@
-/**
- * User: Pavel 'PK' Kaminsky
- * Date: 2/6/14
- */
-
-var usersController = require('./../controllers/userController.js');
+var promotionController = require('./../controllers/promotionController.js');
 
 function validateSession(req, res, next) {
     if (!req.session.fbid) {
@@ -20,6 +15,6 @@ module.exports.init = function (server) {
     });
 
     //user
-     server.get('/users/:id', usersController.getUser);
+     server.get('/promotions/:id', promotionController.getPromotion);
 
 };

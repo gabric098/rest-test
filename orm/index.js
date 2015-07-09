@@ -1,7 +1,3 @@
-/**
- * User: Pavel 'PK' Kaminsky
- * Date: 3/28/14
- */
 dbConfig = require('../config/development.json').database;
 var Sequelize = require("sequelize")
 
