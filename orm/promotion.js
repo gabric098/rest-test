@@ -32,10 +32,12 @@ var Promotion = sequelize.define('promotion', {
     },
     start_date: {
         type: Sequelize.DATE,
+        isNull: false,
         isDate: true
     },
     end_date: {
         type: Sequelize.DATE,
+        isNull: false,
         isDate: true
     }
 }, {
@@ -77,20 +79,21 @@ var Promotion = sequelize.define('promotion', {
     }
 });
 
-
-Promotion.beforeCreate(function(promotion, options) {
-    console.log("beforeCreate " + promotion.name);
-    Promotion.scope('overlap', { method: [
+Promotion.hook('beforeCreate', function(promotion, options) {
+    return Promotion.scope('overlap', { method: [
         'overlap',
         promotion.name,
         promotion.start_date,
         promotion.end_date
     ]} ).findAll().then(function (result) {
-        if (result.length >= 1) {
-            throw new Error("A promotions with the same name already exists and overlaps with the one you're creating")
+        if (result.length > 0) {
+            return sequelize.Promise.reject("Promotion is overlapping an existing one with the same name");
+        } else {
+            return sequelize.Promise.resolve();
         }
     });
 });
+
 
 
 module.exports.findPromotionById = function (id, sucCallback, errCallback) {
@@ -103,11 +106,15 @@ module.exports.findPromotionById = function (id, sucCallback, errCallback) {
 };
 
 module.exports.createPromotion = function (promotion, sucCallback, errCallback) {
+
     Promotion.create(promotion)
         .then(function (result) {
             sucCallback(result);
         }, function (reason) {
             errCallback(reason);
+        })
+        .catch(function(e) {
+            console.log("handled the error");
         });
 };
 
