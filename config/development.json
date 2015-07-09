@@ -1,5 +1,6 @@
 {
     "app": {
+        "apiVersion" : "v1",
         "name": "rest-test"
     },
     "server": {
@@ -16,7 +17,7 @@
     "database" : {
         "host" : "localhost",
         "database" : "dod_dev",
-        "port" : "3306",
+        "port" : "8889",
         "user" : "root",
         "password" : "root",
         "dialect": "mysql"

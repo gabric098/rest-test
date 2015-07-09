@@ -55,7 +55,7 @@ server.use(plugins);
 
 
 //Routes
-routes.init(server);
+routes.init(server, nconf.get('app:apiVersion'));
 
 //Logging
 server.on('after', restify.auditLogger({
