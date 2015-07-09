@@ -11,9 +11,7 @@ exports.getPromotion = function (req, res) {
 
     Promotion.findPromotionById(req.params["id"], function (result) {
         if (result.length < 1) {
-            res.fail({
-                name: 'Resource not found.'
-            });
+            res.error('Resource not found');
         } else {
             res.success(result);
         }
@@ -98,9 +96,9 @@ exports.createPromotion = function (req, res) {
     };
 
     Promotion.createPromotion(promotion, function (result) {
-            res.success(result);
+            res.success("Resource created.");
         }, function(reason) {
-            res.error("Server error", reason);
+            res.error(reason);
         }
     );
 };
