@@ -1,0 +1,18 @@
+{
+  "appenders": [
+    {
+      "type": "logLevelFilter",
+      "level": "debug",
+      "appender": {
+        "type": "file",
+        "absolute": false,
+        "filename": "../../../logs/api.log",
+        "layout": {
+          "type": "pattern",
+          "pattern": "[%d] [%h] [%z] [%c] %p: %m"
+        }
+      }
+    }
+  ],
+  "replaceConsole": true
+}

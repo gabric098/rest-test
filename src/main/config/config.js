@@ -1,4 +1,4 @@
-{
+var config = {
     "app": {
         "name": "rest-test"
     },
@@ -9,9 +9,12 @@
         "defaultVersion": "1.0.0",
         "acceptable": [ "application/json" ]
     },
-    "logging": {
-        "name": "AuditLogging",
-        "dir": "./logs/"
+    log : {
+        level: 'debug',
+        filename: '../../../logs/api.log',
+        outputToConsole: true,
+        outputToFile: true,
+        config: 'src/main/config/log4js.json'
     },
     "database" : {
         "host" : "localhost",
@@ -21,4 +24,6 @@
         "password" : "root",
         "dialect": "mysql"
     }
-}
+};
+
+module.exports = config;
