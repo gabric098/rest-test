@@ -112,9 +112,6 @@ module.exports.createPromotion = function (promotion, sucCallback, errCallback) 
             sucCallback(result);
         }, function (reason) {
             errCallback(reason);
-        })
-        .catch(function(e) {
-            console.log("handled the error");
         });
 };
 
