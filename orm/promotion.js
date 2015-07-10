@@ -32,12 +32,12 @@ var Promotion = sequelize.define('promotion', {
     },
     start_date: {
         type: Sequelize.DATE,
-        isNull: false,
+        notNull: true,
         isDate: true
     },
     end_date: {
         type: Sequelize.DATE,
-        isNull: false,
+        notNull: true,
         isDate: true
     }
 }, {
@@ -65,12 +65,12 @@ var Promotion = sequelize.define('promotion', {
                     name : {
                         $eq: name
                     },
-                    $or: {
+                    $and: {
                         start_date: {
-                            $between: [stDate, endDate]
+                            $lte: endDate
                         },
                         end_date: {
-                            $between: [stDate, endDate]
+                            $gte: stDate
                         }
                     }
                 }
@@ -80,6 +80,15 @@ var Promotion = sequelize.define('promotion', {
 });
 
 Promotion.hook('beforeCreate', function(promotion, options) {
+    // check if the dates are coherent (start_date < end_date)
+    if (promotion.end_date <= promotion.start_date ) {
+        return sequelize.Promise.reject("End date must be greater than start date");
+    }
+
+    // apply custom check:
+    // - IF promotion has same name AND
+    // - dates range overlaps
+    // - THEN the promotion can't be inserted
     return Promotion.scope('overlap', { method: [
         'overlap',
         promotion.name,
