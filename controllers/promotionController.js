@@ -1,146 +1,137 @@
 var Promotion = require('./../orm/promotion.js');
 
+var internals = {
+    /**
+     *
+     * @param req
+     * @param res
+     * @returns {boolean}
+     */
+    isRequestValidated : function(req, res) {
+        var errors = req.validationErrors();
+
+        if (errors) {
+            res.fail(errors);
+            return false;
+        }
+        return true;
+    },
+
+    /**
+     *
+     * @param req
+     */
+    preparePromotion : function(req) {
+        // compose the promotions object
+        return {
+            name: req.params["name"],
+            worth_perc: req.params["worth_perc"],
+            priority: req.params["priority"],
+            start_date: req.params["start_date"],
+            end_date: req.params["end_date"]
+        };
+    }
+};
+
 exports.getPromotion = function (req, res) {
-
-    var errors = req.validationErrors();
-
-    if (errors) {
-        res.fail(errors);
+    if (!internals.isRequestValidated(req, res)) {
         return;
     }
 
-    Promotion.findPromotionById(req.params["id"], function (result) {
+    var resolveCb = function(result) {
         if (result.length < 1) {
-            res.error('Resource not found');
+            res.fail({description: 'Resource not found'});
         } else {
             res.success(result);
         }
-    }, function(reason) {
-            res.error("Server error", reason);
-        }
-    )
+    };
 
+    var rejectCb = function(reason) {
+        res.error("Server error", reason);
+    };
+
+    Promotion.findPromotionById(req.params["id"], resolveCb, rejectCb);
 };
 
 exports.deletePromotion = function (req, res) {
-
-    var errors = req.validationErrors();
-
-    if (errors) {
-        res.fail(errors);
+    if (!internals.isRequestValidated(req, res)) {
         return;
     }
 
-    Promotion.deletePromotionById(req.params["id"], function (deletedNo) {
-            if (deletedNo !== 1) {
-                res.fail({
-                    name: 'Resource not found.'
-                });
-            } else {
-                res.success({
-                    name: 'Resource deleted.'
-                });
-            }
-        }, function(reason) {
-            res.error("Server error", reason);
+    var resolveCb = function(result) {
+        if (result !== 1) {
+            res.fail({description: 'Resource not found.'});
+        } else {
+            res.success({description: 'Resource deleted.'});
         }
-    )
+    };
 
+    var rejectCb = function(reason) {
+        res.error("Server error", reason);
+    };
+
+    Promotion.deletePromotionById(req.params["id"], resolveCb, rejectCb);
 };
 
 exports.getActivePromotions = function (req, res) {
-
-    var errors = req.validationErrors();
-
-    if (errors) {
-        res.fail(errors);
+    if (!internals.isRequestValidated(req, res)) {
         return;
     }
 
-    Promotion.findActive(function (result) {
-            if (result.length < 1) {
-                res.fail({
-                    name: 'Resource not found.'
-                });
-            } else {
-                res.success(result);
-            }
-        }, function(reason) {
-            res.error("Server error", reason);
-        }
-    )
+    Promotion.findActive(resolveCb, rejectCb);
 
+    var resolveCb = function(result) {
+        if (result.length < 1) {
+            res.fail({description: 'Resource not found'});
+        } else {
+            res.success(result);
+        }
+    };
+
+    var rejectCb = function(reason) {
+        res.error("Server error", reason);
+    };
 };
 
 exports.createPromotion = function (req, res) {
-    var errors = req.validationErrors();
-
-    if (errors) {
-        res.fail(errors);
+    if (!internals.isRequestValidated(req, res)) {
         return;
     }
 
-    var name = req.params["name"];
-    var worth_perc = req.params["worth_perc"];
-    var priority = req.params["priority"];
-    var start_date = req.params["start_date"];
-    var end_date = req.params["end_date"];
-
-    // compose the promotions object
-    var promotion = {
-        name: name,
-        worth_perc: worth_perc,
-        priority: priority,
-        start_date: start_date,
-        end_date: end_date
+    var resolveCb = function (result) {
+        res.success("Object created");
+    };
+    var rejectCb =  function (reason) {
+        res.error(reason);
     };
 
-    Promotion.createPromotion(promotion, function (result) {
-            res.success("Resource created.");
-        }, function(reason) {
-            res.error(reason);
-        }
-    );
+    var promotion = internals.preparePromotion(req);
+
+    Promotion.createPromotion(promotion, resolveCb, rejectCb);
 };
 
 exports.updatePromotion = function (req, res) {
-    var errors = req.validationErrors();
-
-    if (errors) {
-        res.fail(errors);
+    if (!internals.isRequestValidated(req, res)) {
         return;
     }
 
-    var id = req.params["id"];
-    var name = req.params["name"];
-    var worth_perc = req.params["worth_perc"];
-    var priority = req.params["priority"];
-    var start_date = req.params["start_date"];
-    var end_date = req.params["end_date"];
-
-    // compose the promotions object
-    var promotion = {
-        name: name,
-        worth_perc: worth_perc,
-        priority: priority,
-        start_date: start_date,
-        end_date: end_date
+    var resolveCb = function (result) {
+        if (result[0] !== 1) {
+            res.fail({description: 'Resource not found'});
+        } else {
+            res.success({
+                name: 'Resource updated.'
+            });
+        }
     };
 
-    Promotion.updatePromotion(id, promotion, function (result) {
-            console.log(result);
-            if (result[0] !== 1) {
-                res.fail({
-                    name: 'Resource not found.'
-                });
-            } else {
-                res.success({
-                    name: 'Resource updated.'
-                });
-            }
-        }, function(reason) {
-            res.error("Server error", reason);
-        }
-    );
+    var rejectCb =  function (reason) {
+        res.error("Server error", reason);
+    };
+
+    var id = req.params["id"];
+    var promotion = internals.preparePromotion(req);
+
+    Promotion.updatePromotion(id, promotion, resolveCb, rejectCb);
 };
 
