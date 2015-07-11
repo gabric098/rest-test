@@ -4,8 +4,7 @@ var Sequelize = require("sequelize");
 var sequelize = new Sequelize(dbConfig.database, dbConfig.user, dbConfig.password, {
     host: dbConfig.host,
     port: dbConfig.port,
-    dialect: dbConfig.dialect,
-    timezone: serverConfig.timezone
+    dialect: dbConfig.dialect
 });
 
 var Promotion = sequelize.define('promotion', {
@@ -13,32 +12,63 @@ var Promotion = sequelize.define('promotion', {
     name: {
         type: Sequelize.STRING,
         validate: {
-            len: [0, 255]
+            len: {
+                args: [1, 255],
+                msg: "name can't be empty or longer than 255 chars."
+            }
         }
     },
     worth_perc: {
         type: Sequelize.INTEGER,
         validate: {
-            min: 0,
-            max: 100
+            isInt: {
+                args: [true],
+                msg: "worth_perc must be a valid integer."
+            },
+            min: {
+                args: [0],
+                msg: "worth_perc value must be beetween 1 and 100."
+            },
+            max: {
+                args: [100],
+                msg: "worth_perc value must be beetween 1 and 100."
+            }
         }
     },
     priority: {
         type: Sequelize.INTEGER,
         validate: {
-            min: 1,
-            max: 10
+            isInt: {
+                args: [true],
+                msg: "priority must be a valid integer."
+            },
+            min: {
+                args: [1],
+                msg: "priority value must be beetween 1 and 10."
+            },
+            max: {
+                args: [10],
+                msg: "priority value must be beetween 1 and 10."
+            }
         }
     },
     start_date: {
         type: Sequelize.DATE,
-        notNull: true,
-        isDate: true
+        validate: {
+            isDate: {
+                args: [true],
+                msg: "start_date must be a valid date, use this format (2001-10-31T22:00:00.000Z)"
+            }
+        }
     },
     end_date: {
         type: Sequelize.DATE,
-        notNull: true,
-        isDate: true
+        validate: {
+            isDate: {
+                args: [true],
+                msg: "end_date must be a valid date, use this format (2001-10-31T22:00:00.000Z)"
+            }
+        }
     }
 }, {
     timestamps: false,

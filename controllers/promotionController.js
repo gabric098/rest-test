@@ -24,15 +24,25 @@ var internals = {
     preparePromotion : function(req) {
         // compose the promotions object
         return {
-            name: req.params["name"],
-            worth_perc: req.params["worth_perc"],
-            priority: req.params["priority"],
-            start_date: req.params["start_date"],
-            end_date: req.params["end_date"]
+            name: req.params["name"] || "",
+            worth_perc: req.params["worth_perc"] || "",
+            priority: req.params["priority"] || "",
+            start_date: req.params["start_date"] || "",
+            end_date: req.params["end_date"] || ""
         };
+    },
+
+    makeErrorFriendly : function(reason) {
+        var errUser = "Something went wrong while fulfilling your request";
+        var errCode = reason || "unknown";
+        return {
+            description: errUser,
+            code: errCode
+        }
     }
 };
 
+//OK
 exports.getPromotion = function (req, res) {
     if (!internals.isRequestValidated(req, res)) {
         return;
@@ -40,6 +50,7 @@ exports.getPromotion = function (req, res) {
 
     var resolveCb = function(result) {
         if (result.length < 1) {
+            res.status(404);
             res.fail({description: 'Resource not found'});
         } else {
             res.success(result);
@@ -47,12 +58,14 @@ exports.getPromotion = function (req, res) {
     };
 
     var rejectCb = function(reason) {
-        res.error("Server error", reason);
+        var error = internals.makeErrorFriendly(reason);
+        res.error("Server error", error);
     };
 
     Promotion.findPromotionById(req.params["id"], resolveCb, rejectCb);
 };
 
+//OK
 exports.deletePromotion = function (req, res) {
     if (!internals.isRequestValidated(req, res)) {
         return;
@@ -60,6 +73,7 @@ exports.deletePromotion = function (req, res) {
 
     var resolveCb = function(result) {
         if (result !== 1) {
+            res.status(404);
             res.fail({description: 'Resource not found.'});
         } else {
             res.success({description: 'Resource deleted.'});
@@ -67,30 +81,34 @@ exports.deletePromotion = function (req, res) {
     };
 
     var rejectCb = function(reason) {
-        res.error("Server error", reason);
+        var error = internals.makeErrorFriendly(reason);
+        res.error("Server error", error);
     };
 
     Promotion.deletePromotionById(req.params["id"], resolveCb, rejectCb);
 };
 
+//OK
 exports.getActivePromotions = function (req, res) {
     if (!internals.isRequestValidated(req, res)) {
         return;
     }
 
-    Promotion.findActive(resolveCb, rejectCb);
-
     var resolveCb = function(result) {
         if (result.length < 1) {
-            res.fail({description: 'Resource not found'});
+            res.status(404);
+            res.fail({description: 'No resources found'});
         } else {
             res.success(result);
         }
     };
 
     var rejectCb = function(reason) {
-        res.error("Server error", reason);
+        var error = internals.makeErrorFriendly(reason);
+        res.error("Server error", error);
     };
+
+    Promotion.findActive(resolveCb, rejectCb);
 };
 
 exports.createPromotion = function (req, res) {
@@ -101,8 +119,9 @@ exports.createPromotion = function (req, res) {
     var resolveCb = function (result) {
         res.success("Object created");
     };
-    var rejectCb =  function (reason) {
-        res.error(reason);
+    var rejectCb = function(reason) {
+        var error = internals.makeErrorFriendly(reason);
+        res.error("Server error", error);
     };
 
     var promotion = internals.preparePromotion(req);
@@ -117,7 +136,8 @@ exports.updatePromotion = function (req, res) {
 
     var resolveCb = function (result) {
         if (result[0] !== 1) {
-            res.fail({description: 'Resource not found'});
+            res.status(404);
+            res.fail({description: 'Resource found'});
         } else {
             res.success({
                 name: 'Resource updated.'
@@ -125,8 +145,9 @@ exports.updatePromotion = function (req, res) {
         }
     };
 
-    var rejectCb =  function (reason) {
-        res.error("Server error", reason);
+    var rejectCb = function(reason) {
+        var error = internals.makeErrorFriendly(reason);
+        res.error("Server error", error);
     };
 
     var id = req.params["id"];
