@@ -16,27 +16,14 @@ var nconf = require('nconf'),
 
 // config
 nconf.file({
-    file: path.join(__dirname, 'config', process.env.NODE_ENV + '.json')
-});
-
-// logging
-var Logger = bunyan.createLogger({
-    name: nconf.get('logging:name'),
-    serializers: {
-        req: bunyan.stdSerializers.req,
-        res: bunyan.stdSerializers.res
-    },
-    streams: [
-        { path: path.join(nconf.get('logging:dir'), process.env.NODE_ENV + '-' + nconf.get('server:name') + '.log') }
-    ]
+    file: path.join(__dirname, '../config', process.env.NODE_ENV + '.json')
 });
 
 // start server
 var server = restify.createServer({
     name: nconf.get('server:name'),
     version: nconf.get('server:defaultVersion'),
-    acceptable: nconf.get('server:acceptable'),
-    log: Logger
+    acceptable: nconf.get('server:acceptable')
 });
 
 var plugins = [
@@ -53,15 +40,8 @@ var plugins = [
 
 server.use(plugins);
 
-
 //Routes
 routes.init(server, nconf.get('app:apiVersion'));
-
-//Logging
-server.on('after', restify.auditLogger({
-    log: Logger
-}));
-
 
 server.listen(nconf.get('server:port'), function () {
     console.log();

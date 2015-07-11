@@ -1,19 +1,21 @@
 {
-    "name": "rest-test",
-    "version": "1.0.0",
-    "private": true,
-    "scripts": {
-        "start": "node server"
-    },
-
-    "dependencies": {
-        "restify": "~3.0.3",
-        "nconf": "~0.7.1",
-        "bunyan": "~1.4.0",
-        "mysql": "~2.7.0",
-        "sequelize": "~3.3.2",
-        "jsender": "~0.0.6",
-        "restify-validator": "~0.3.1",
-        "lodash": "^3.10.0"
-    }
+  "name": "rest-test",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node main/apps/server",
+    "test": "mocha test"
+  },
+  "dependencies": {
+    "restify": "~3.0.3",
+    "nconf": "~0.7.1",
+    "mysql": "~2.7.0",
+    "sequelize": "~3.3.2",
+    "jsender": "~0.0.6",
+    "restify-validator": "~0.3.1",
+    "lodash": "^3.10.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.5"
+  }
 }
