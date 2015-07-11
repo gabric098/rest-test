@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node main/apps/server",
-    "test": "mocha test"
+    "start": "NODE_ENV=development node main/apps/index",
+    "test": "NODE_ENV=test mocha test/test test"
   },
   "dependencies": {
     "restify": "~3.0.3",
@@ -16,6 +16,8 @@
     "lodash": "^3.10.0"
   },
   "devDependencies": {
-    "mocha": "^2.2.5"
+    "expect.js": "^0.3.1",
+    "mocha": "^2.2.5",
+    "superagent": "^1.2.0"
   }
 }

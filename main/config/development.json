@@ -9,16 +9,13 @@
         "defaultVersion": "1.0.0",
         "acceptable": [ "application/json" ]
     },
-    "logging": {
-        "name": "AuditLogging",
-        "dir": "./logs/"
-    },
     "database" : {
         "host" : "localhost",
         "database" : "dod_dev",
         "port" : "8889",
         "user" : "root",
         "password" : "root",
-        "dialect": "mysql"
+        "dialect": "mysql",
+        "logging": false
     }
 }

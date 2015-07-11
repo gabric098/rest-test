@@ -3,12 +3,12 @@
 if (!process.env.NODE_ENV) {
     process.env.NODE_ENV = 'development';
 }
+console.log()
 
 // module dependencies.
 var nconf = require('nconf'),
     path = require('path'),
     restify = require('restify'),
-    bunyan = require('bunyan'),
     jsender = require('jsender'),
     routes = require('./routes'),
     restifyValidator = require('restify-validator');
@@ -43,8 +43,4 @@ server.use(plugins);
 //Routes
 routes.init(server, nconf.get('app:apiVersion'));
 
-server.listen(nconf.get('server:port'), function () {
-    console.log();
-    console.log('%s now listening on %s', nconf.get('app:name'), server.url);
-    console.log();
-});
+module.exports = server;

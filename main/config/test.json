@@ -1,0 +1,21 @@
+{
+  "app": {
+    "apiVersion" : "v1",
+    "name": "rest-test"
+  },
+  "server": {
+    "port": 3001,
+    "name": "localhost",
+    "defaultVersion": "1.0.0",
+    "acceptable": [ "application/json" ]
+  },
+  "database" : {
+    "host" : "localhost",
+    "database" : "dod_test",
+    "port" : "8889",
+    "user" : "root",
+    "password" : "root",
+    "dialect": "mysql",
+    "logging": false
+  }
+}
