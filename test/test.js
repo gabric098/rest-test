@@ -140,5 +140,24 @@ describe('promotions endpoint', function(){
             });
     });
 
-
+    it('Should prevent inserting a promotion with the same name and overlapping dates', function(done){
+        request
+            .post('http://localhost:3001/v1/promotions')
+            .send({
+                name: "Test Promotion 1",
+                worth_perc: 20,
+                priority: 1,
+                start_date: testDate1.start_date,
+                end_date: testDate1.end_date
+            })
+            .set('Accept', 'application/json')
+            .end(function(err, res) {
+                expect(res).to.exist;
+                expect(res.status).to.equal(500);
+                expect(res.body.status).to.equal("error");
+                expect(res.body.data.description).to.equal("Something went wrong while fulfilling your request");
+                expect(res.body.data.code).to.equal("Promotion is overlapping an existing one with the same name");
+                done();
+            });
+    });
 });
