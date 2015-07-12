@@ -15,7 +15,23 @@
     "port" : "8889",
     "user" : "root",
     "password" : "root",
-    "dialect": "mysql",
-    "logging": "console.log"
+    "dialect": "mysql"
+  },
+  "log4js" : {
+    "appenders": [
+      {
+        "type": "logLevelFilter",
+        "level": "debug",
+        "appender": {
+          "type": "file",
+          "filename": "./main/logs/dev.log",
+          "layout": {
+            "type": "pattern",
+            "pattern": "[%d] [%h] [%z] [%c] %p: %m"
+          }
+        }
+      }
+    ],
+    "replaceConsole": true
   }
 }

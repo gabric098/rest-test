@@ -13,6 +13,7 @@
      */
     var libs = {
         router: require('../router'),
+        logger: require('../logger').getLogger("server.js"),
         restify: require('restify'),
         jsender : require('jsender'),
         restifyValidator : require('restify-validator'),
@@ -44,10 +45,12 @@
          * @private
          */
         run : function() {
+            libs.logger.info('Starting API server...');
             internals.server = internals.createServer();
             internals.setupServer();
             internals.setEndpoints();
             internals.listen(libs.nconf.get('server:port'));
+            libs.logger.info('API server started.');
         },
 
         /**

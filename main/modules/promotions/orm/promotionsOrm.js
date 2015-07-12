@@ -4,6 +4,7 @@
      * external resources and requirements
      */
     var libs = {
+        logger: require('../../logger').getLogger('promotionsOrm.js'),
         nconf: require('nconf'),
         path: require('path'),
         Sequelize: require("sequelize")
@@ -32,11 +33,14 @@
                     file: libs.path.join(__dirname, '../../../config', process.env.NODE_ENV + '.json')
                 });
 
+                libs.logger.info("initialize sequelize");
                 internals.sequelize = new libs.Sequelize(libs.nconf.get('database:database'), libs.nconf.get('database:user'), libs.nconf.get('database:password'), {
                     host: libs.nconf.get('database:host'),
                     port: libs.nconf.get('database:port'),
                     dialect: libs.nconf.get('database:dialect'),
-                    logging: console.log
+                    logging: function(msg) {
+                        libs.logger.info(msg);
+                    }
                 });
 
                 internals.Promotion = internals.defineOrm();

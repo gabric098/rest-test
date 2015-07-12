@@ -1,21 +1,37 @@
 {
   "app": {
-    "apiVersion" : "v1",
+    "apiVersion": "v1",
     "name": "rest-test"
   },
   "server": {
     "port": 3001,
     "name": "localhost",
     "defaultVersion": "1.0.0",
-    "acceptable": [ "application/json" ]
+    "acceptable": ["application/json"]
   },
-  "database" : {
-    "host" : "localhost",
-    "database" : "dod_test",
-    "port" : "8889",
-    "user" : "root",
-    "password" : "root",
-    "dialect": "mysql",
-    "logging": false
+  "database": {
+    "host": "localhost",
+    "database": "dod_test",
+    "port": "8889",
+    "user": "root",
+    "password": "root",
+    "dialect": "mysql"
+  },
+  "log4js": {
+    "appenders": [
+      {
+        "type": "logLevelFilter",
+        "level": "debug",
+        "appender": {
+          "type": "file",
+          "filename": "./main/logs/test.log",
+          "layout": {
+            "type": "pattern",
+            "pattern": "[%d] [%h] [%z] [%c] %p: %m"
+          }
+        }
+      }
+    ],
+    "replaceConsole": false
   }
 }
