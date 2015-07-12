@@ -80,12 +80,15 @@ var Promotion = sequelize.define('promotion', {
                 }
             },
             order: [
-                ['priority', 'ASC']
+                ['priority', 'DESC']
             ]
         },
-        overlap: function (name, stDate, endDate) {
+        overlap: function (id, name, stDate, endDate) {
             return {
                 where: {
+                    id: {
+                      $ne: id
+                    },
                     name : {
                         $eq: name
                     },
@@ -103,7 +106,7 @@ var Promotion = sequelize.define('promotion', {
     }
 });
 
-Promotion.hook('beforeCreate', function(promotion, options) {
+var preFlightChecks = function(promotion, options) {
     // check if the dates are coherent (start_date < end_date)
     if (promotion.end_date <= promotion.start_date ) {
         return sequelize.Promise.reject("End date must be greater than start date");
@@ -115,6 +118,7 @@ Promotion.hook('beforeCreate', function(promotion, options) {
     // - THEN the promotion can't be inserted
     return Promotion.scope('overlap', { method: [
         'overlap',
+        promotion.id,
         promotion.name,
         promotion.start_date,
         promotion.end_date
@@ -125,7 +129,10 @@ Promotion.hook('beforeCreate', function(promotion, options) {
             return sequelize.Promise.resolve();
         }
     });
-});
+};
+
+Promotion.hook('beforeCreate', preFlightChecks);
+Promotion.hook('beforeUpdate', preFlightChecks);
 
 
 
@@ -149,7 +156,11 @@ module.exports.createPromotion = function (promotion, sucCallback, errCallback) 
 };
 
 module.exports.updatePromotion = function (id, promotion, sucCallback, errCallback) {
-    Promotion.update(promotion, {where: {id: id}})
+    Promotion.update(promotion, {
+        where: {id: id},
+        validate: true,
+        individualHooks: true
+    })
         .then(function (result) {
             sucCallback(result);
         }, function (reason) {

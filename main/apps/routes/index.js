@@ -14,8 +14,6 @@ module.exports.init = function (server, apiVersion) {
         res.success("API IS OK");
     });
 
-    console.log(apiVersion);
-
     //user
     server.get('/'+apiVersion+'/promotions', promotionController.getActivePromotions);
 

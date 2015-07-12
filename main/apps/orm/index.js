@@ -12,7 +12,7 @@ var sequelize = new Sequelize(nconf.get('database:database'), nconf.get('databas
     host: nconf.get('database:host'),
     port: nconf.get('database:port'),
     dialect: nconf.get('database:dialect'),
-    logging: nconf.get('database:logging')
+    logging: console.log
 });
 
 module.exports = sequelize;

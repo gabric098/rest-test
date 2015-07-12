@@ -42,7 +42,6 @@ var internals = {
     }
 };
 
-//OK
 exports.getPromotion = function (req, res) {
     if (!internals.isRequestValidated(req, res)) {
         return;
@@ -88,8 +87,8 @@ exports.deletePromotion = function (req, res) {
     Promotion.deletePromotionById(req.params["id"], resolveCb, rejectCb);
 };
 
-//OK
 exports.getActivePromotions = function (req, res) {
+    res.cache([type], [options]);
     if (!internals.isRequestValidated(req, res)) {
         return;
     }

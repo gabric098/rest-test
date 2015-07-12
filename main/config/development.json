@@ -16,6 +16,6 @@
         "user" : "root",
         "password" : "root",
         "dialect": "mysql",
-        "logging": false
+        "logging": "console.log"
     }
 }
