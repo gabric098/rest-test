@@ -50,7 +50,7 @@
             internals.setupServer();
             internals.setEndpoints();
             internals.listen(libs.nconf.get('server:port'));
-            libs.logger.info('API server started.');
+            libs.logger.info('API server started and listening to port: ' + libs.nconf.get('server:port'));
         },
 
         /**
@@ -94,11 +94,11 @@
          * Enable the server to recieve incoming connections to the
          * specified port
          *
+         * @param server port
          * @private
          */
-        listen : function() {
-            console.log('Server up and running');
-            internals.server.listen(libs.nconf.get('server:port'));
+        listen : function(port) {
+            internals.server.listen(port);
         },
 
         /**
@@ -126,6 +126,7 @@
          * @private
          */
         setGETEndPoint : function (action) {
+            libs.logger.info('Setting GET endpoint: ' + '/' + libs.nconf.get('app:apiVersion') + action.endPoint);
             internals.server.get('/' + libs.nconf.get('app:apiVersion') + action.endPoint, action.impl);
         },
 
@@ -135,6 +136,7 @@
          * @private
          */
         setPOSTEndPoint : function (action) {
+            libs.logger.info('Setting POST endpoint: ' + '/' + libs.nconf.get('app:apiVersion') + action.endPoint);
             internals.server.post('/' + libs.nconf.get('app:apiVersion') + action.endPoint, action.impl);
         },
 
@@ -144,6 +146,7 @@
          * @private
          */
         setPUTEndPoint : function (action) {
+            libs.logger.info('Setting PUT endpoint: ' + '/' + libs.nconf.get('app:apiVersion') + action.endPoint);
             internals.server.put('/' + libs.nconf.get('app:apiVersion') + action.endPoint, action.impl);
         },
 
@@ -153,6 +156,7 @@
          * @private
          */
         setDELEndPoint : function (action) {
+            libs.logger.info('Setting DEL endpoint: ' + '/' + libs.nconf.get('app:apiVersion') + action.endPoint);
             internals.server.del('/' + libs.nconf.get('app:apiVersion') + action.endPoint, action.impl);
         }
 

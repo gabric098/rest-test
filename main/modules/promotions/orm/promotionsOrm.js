@@ -43,6 +43,7 @@
                     }
                 });
 
+                libs.logger.info("initialize model");
                 internals.Promotion = internals.defineOrm();
                 internals.Promotion.hook('beforeCreate', internals.preFlightChecks);
                 internals.Promotion.hook('beforeUpdate', internals.preFlightChecks);
@@ -175,6 +176,7 @@
          * @private
          */
         preFlightChecks: function (promotion) {
+            libs.logger.info("Entering in preFlightChecks");
             // check if the dates are coherent (start_date < end_date)
             if (promotion.end_date <= promotion.start_date) {
                 return internals.sequelize.Promise.reject("End date must be greater than start date");
@@ -220,6 +222,7 @@
          * @public
          */
         findPromotionById: function (id, sucCallback, errCallback) {
+            libs.logger.info("findPromotionById invoked with id: " + id);
             internals.init();
             internals.Promotion.findAll({where: {id: id}})
                 .then(function (result) {
@@ -239,6 +242,8 @@
          * @public
          */
         createPromotion: function (promotion, sucCallback, errCallback) {
+            libs.logger.info("createPromotion invoked");
+            libs.logger.info(promotion);
             internals.init();
             internals.Promotion.create(promotion)
                 .then(function (result) {
@@ -259,6 +264,8 @@
          * @public
          */
         updatePromotion: function (id, promotion, sucCallback, errCallback) {
+            libs.logger.info("updatePromotion invoked with id: " + id);
+            libs.logger.info(promotion);
             internals.init();
             internals.Promotion.update(promotion, {
                 where: {id: id},
@@ -282,6 +289,7 @@
          * @public
          */
         deletePromotionById: function (id, sucCallback, errCallback) {
+            libs.logger.info("deletePromotionById invoked with id: " + id);
             internals.init();
             internals.Promotion.destroy({where: {id: id}})
                 .then(function (result) {
@@ -300,6 +308,7 @@
          * @public
          */
         findActive: function (sucCallback, errCallback) {
+            libs.logger.info("findActive invoked");
             internals.init();
             internals.Promotion.scope('active').findAll()
                 .then(function (result) {

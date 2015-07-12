@@ -4,6 +4,7 @@
      * external resources and requirements
      */
     var libs = {
+        logger: require('../../logger').getLogger('promotionsController.js'),
         promotionsOrm: require('../orm')
     };
 
@@ -82,6 +83,7 @@
          * @private
          */
         getActivePromotions: function (req, res) {
+            libs.logger.info("getActivePromotions invoked");
             if (!internals.isRequestValidated(req, res)) {
                 return;
             }
@@ -113,6 +115,7 @@
          * @private
          */
         getPromotion : function (req, res) {
+            libs.logger.info("getPromotion invoked");
             if (!internals.isRequestValidated(req, res)) {
                 return;
             }
@@ -145,6 +148,7 @@
          * @private
          */
         deletePromotion: function (req, res) {
+            libs.logger.info("deletePromotion invoked");
             if (!internals.isRequestValidated(req, res)) {
                 return;
             }
@@ -176,6 +180,7 @@
          * @private
          */
         createPromotion: function (req, res) {
+            libs.logger.info("createPromotion invoked");
             if (!internals.isRequestValidated(req, res)) {
                 return;
             }
@@ -203,6 +208,8 @@
          * @private
          */
         updatePromotion: function (req, res) {
+            libs.logger.info("updatePromotion invoked");
+
             if (!internals.isRequestValidated(req, res)) {
                 return;
             }

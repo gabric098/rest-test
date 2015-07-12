@@ -1,0 +1,313 @@
+{
+  "id": "3e7d0b2e-72f5-6659-6fde-e18c50ee1851",
+  "name": "Rest service test",
+  "description": "",
+  "order": [
+    "2c6cce92-baf4-45ac-2b57-7c8d1e82ca20",
+    "ad3c11bc-3671-4f6f-8aac-b3c26f82a750",
+    "a0686f15-a527-bf51-883d-6cd8fa4b2c2b",
+    "c71ac3a9-7f64-4acc-0eb4-9dec677310dc",
+    "2b71bcdd-a0e9-0e13-6a6f-1991bf965d7c",
+    "bfec3c95-fad3-8954-3f19-18863ef0b1df"
+  ],
+  "folders": [],
+  "timestamp": 1436717861646,
+  "owner": "22752",
+  "remoteLink": "",
+  "public": false,
+  "requests": [
+    {
+      "id": "2b71bcdd-a0e9-0e13-6a6f-1991bf965d7c",
+      "headers": "",
+      "url": "http://localhost:3000/v1/promotions/2",
+      "preRequestScript": "",
+      "pathVariables": {},
+      "method": "GET",
+      "data": [
+        {
+          "key": "name",
+          "value": "short one 1x223334!",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "worth_perc",
+          "value": "13",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "priority",
+          "value": "10",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "start_date",
+          "value": "2015-07-27T17:50:00.000Z",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "end_date",
+          "value": "2015-07-30T17:55:00.000Z",
+          "type": "text",
+          "enabled": true
+        }
+      ],
+      "dataMode": "params",
+      "version": 2,
+      "tests": "",
+      "currentHelper": "normal",
+      "helperAttributes": {},
+      "time": 1436718285995,
+      "name": "Get promotion 2",
+      "description": "",
+      "collectionId": "3e7d0b2e-72f5-6659-6fde-e18c50ee1851"
+    },
+    {
+      "id": "2c6cce92-baf4-45ac-2b57-7c8d1e82ca20",
+      "url": "http://localhost:3000/v1/promotions",
+      "method": "GET",
+      "headers": "",
+      "data": [
+        {
+          "key": "name",
+          "value": "short one 1x223334!",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "worth_perc",
+          "value": "13",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "priority",
+          "value": "10",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "start_date",
+          "value": "2015-07-27T17:50:00.000Z",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "end_date",
+          "value": "2015-07-30T17:55:00.000Z",
+          "type": "text",
+          "enabled": true
+        }
+      ],
+      "dataMode": "params",
+      "tests": "",
+      "preRequestScript": "",
+      "currentHelper": "normal",
+      "pathVariables": {},
+      "version": 2,
+      "name": "List active promotions",
+      "description": "",
+      "descriptionFormat": "html",
+      "collectionId": "3e7d0b2e-72f5-6659-6fde-e18c50ee1851"
+    },
+    {
+      "id": "a0686f15-a527-bf51-883d-6cd8fa4b2c2b",
+      "headers": "",
+      "url": "http://localhost:3000/v1/promotions",
+      "preRequestScript": "",
+      "pathVariables": {},
+      "method": "POST",
+      "data": [
+        {
+          "key": "name",
+          "value": "Summer promotion",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "worth_perc",
+          "value": "40",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "priority",
+          "value": "5",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "start_date",
+          "value": "2015-06-21T00:00:00.000Z",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "end_date",
+          "value": "2015-09-20T23:59:59.000Z",
+          "type": "text",
+          "enabled": true
+        }
+      ],
+      "dataMode": "params",
+      "version": 2,
+      "tests": "",
+      "currentHelper": "normal",
+      "helperAttributes": {},
+      "time": 1436718487676,
+      "name": "Create Active promotion",
+      "description": "",
+      "collectionId": "3e7d0b2e-72f5-6659-6fde-e18c50ee1851"
+    },
+    {
+      "id": "ad3c11bc-3671-4f6f-8aac-b3c26f82a750",
+      "headers": "",
+      "url": "http://localhost:3000/v1/promotions",
+      "preRequestScript": "",
+      "pathVariables": {},
+      "method": "POST",
+      "data": [
+        {
+          "key": "name",
+          "value": "Christmast promotion",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "worth_perc",
+          "value": "50",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "priority",
+          "value": "10",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "start_date",
+          "value": "2015-12-25T00:00:00.000Z",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "end_date",
+          "value": "2015-12-25T23:59:59.000Z",
+          "type": "text",
+          "enabled": true
+        }
+      ],
+      "dataMode": "params",
+      "version": 2,
+      "tests": "",
+      "currentHelper": "normal",
+      "helperAttributes": {},
+      "time": 1436718474749,
+      "name": "Create Inactive promotion",
+      "description": "",
+      "collectionId": "3e7d0b2e-72f5-6659-6fde-e18c50ee1851"
+    },
+    {
+      "id": "bfec3c95-fad3-8954-3f19-18863ef0b1df",
+      "headers": "",
+      "url": "http://localhost:3000/v1promotions/2",
+      "preRequestScript": "",
+      "pathVariables": {},
+      "method": "PUT",
+      "data": [
+        {
+          "key": "name",
+          "value": "Summer promotion updated",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "worth_perc",
+          "value": "40",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "priority",
+          "value": "5",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "start_date",
+          "value": "2015-06-21T00:00:00.000Z",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "end_date",
+          "value": "2015-09-20T23:59:59.000Z",
+          "type": "text",
+          "enabled": true
+        }
+      ],
+      "dataMode": "params",
+      "version": 2,
+      "tests": "",
+      "currentHelper": "normal",
+      "helperAttributes": {},
+      "time": 1436718518339,
+      "name": "Update promotion 2",
+      "description": "",
+      "collectionId": "3e7d0b2e-72f5-6659-6fde-e18c50ee1851"
+    },
+    {
+      "id": "c71ac3a9-7f64-4acc-0eb4-9dec677310dc",
+      "headers": "",
+      "url": "http://localhost:3000/v1/promotions/1",
+      "preRequestScript": "",
+      "pathVariables": {},
+      "method": "DELETE",
+      "data": [
+        {
+          "key": "name",
+          "value": "short one 1x223334!",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "worth_perc",
+          "value": "13",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "priority",
+          "value": "10",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "start_date",
+          "value": "2015-07-27T17:50:00.000Z",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "end_date",
+          "value": "2015-07-30T17:55:00.000Z",
+          "type": "text",
+          "enabled": true
+        }
+      ],
+      "dataMode": "params",
+      "version": 2,
+      "tests": "",
+      "currentHelper": "normal",
+      "helperAttributes": {},
+      "time": 1436718502133,
+      "name": "Delete promotion 1",
+      "description": "",
+      "collectionId": "3e7d0b2e-72f5-6659-6fde-e18c50ee1851"
+    }
+  ]
+}
