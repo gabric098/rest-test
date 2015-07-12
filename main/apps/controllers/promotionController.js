@@ -88,7 +88,6 @@ exports.deletePromotion = function (req, res) {
 };
 
 exports.getActivePromotions = function (req, res) {
-    res.cache([type], [options]);
     if (!internals.isRequestValidated(req, res)) {
         return;
     }
