@@ -1,21 +1,21 @@
 {
-    "app": {
-        "apiVersion" : "v1",
-        "name": "rest-test"
-    },
-    "server": {
-        "port": 3000,
-        "name": "localhost",
-        "defaultVersion": "1.0.0",
-        "acceptable": [ "application/json" ]
-    },
-    "database" : {
-        "host" : "localhost",
-        "database" : "dod_dev",
-        "port" : "8889",
-        "user" : "root",
-        "password" : "root",
-        "dialect": "mysql",
-        "logging": "console.log"
-    }
+  "app": {
+    "apiVersion" : "v1",
+    "name": "rest-test"
+  },
+  "server": {
+    "port": 3000,
+    "name": "localhost",
+    "defaultVersion": "1.0.0",
+    "acceptable": [ "application/json" ]
+  },
+  "database" : {
+    "host" : "localhost",
+    "database" : "dod_dev",
+    "port" : "8889",
+    "user" : "root",
+    "password" : "root",
+    "dialect": "mysql",
+    "logging": "console.log"
+  }
 }

@@ -1,11 +1,27 @@
 (function () {
 
+    /**
+     * external resources and requirements
+     */
     var libs = {
         promotionsOrm: require('../orm')
     };
 
+    /**
+     * Private methods and vars
+     */
     var internals = {
 
+        /**
+         * Checks if the current request is valid
+         *
+         * @param req
+         * @param res
+         *
+         * @returns {boolean}
+         *
+         * @private
+         */
         isRequestValidated : function(req, res) {
             var errors = req.validationErrors();
 
@@ -16,6 +32,16 @@
             return true;
         },
 
+        /**
+         * Reads the incoming POST parameters and builds an object
+         * representing a promotion
+         *
+         * @param req
+         *
+         * @returns {Object}
+         *
+         * @private
+         */
         preparePromotion : function(req) {
             // compose the promotions object
             return {
@@ -27,6 +53,16 @@
             };
         },
 
+        /**
+         * In case of error, returns a friendly message to be returned to the user,
+         * and a detailed error description for internal debug.
+         *
+         * @param reason
+         *
+         * @returns {Object}
+         *
+         * @private
+         */
         makeErrorFriendly : function(reason) {
             var errUser = "Something went wrong while fulfilling your request";
             var errCode = reason || "unknown";
@@ -36,6 +72,15 @@
             }
         },
 
+        /**
+         * Invokes the findActive method on the ORM and passes to it
+         * the promise callback functions
+         *
+         * @param req
+         * @param res
+         *
+         * @private
+         */
         getActivePromotions: function (req, res) {
             if (!internals.isRequestValidated(req, res)) {
                 return;
@@ -58,6 +103,15 @@
             libs.promotionsOrm.findActive(resolveCb, rejectCb);
         },
 
+        /**
+         * Invokes the findPromotionById method on the ORM and passes to it
+         * the promise callback functions
+         *
+         * @param req
+         * @param res
+         *
+         * @private
+         */
         getPromotion : function (req, res) {
             if (!internals.isRequestValidated(req, res)) {
                 return;
@@ -80,6 +134,16 @@
             libs.promotionsOrm.findPromotionById(req.params["id"], resolveCb, rejectCb);
         },
 
+
+        /**
+         * Invokes the deletePromotionById method on the ORM and passes to it
+         * the promise callback functions
+         *
+         * @param req
+         * @param res
+         *
+         * @private
+         */
         deletePromotion: function (req, res) {
             if (!internals.isRequestValidated(req, res)) {
                 return;
@@ -102,6 +166,15 @@
             libs.promotionsOrm.deletePromotionById(req.params["id"], resolveCb, rejectCb);
         },
 
+        /**
+         * Invokes the createPromotion method on the ORM and passes to it
+         * the promise callback functions
+         *
+         * @param req
+         * @param res
+         *
+         * @private
+         */
         createPromotion: function (req, res) {
             if (!internals.isRequestValidated(req, res)) {
                 return;
@@ -120,6 +193,15 @@
             libs.promotionsOrm.createPromotion(promotion, resolveCb, rejectCb);
         },
 
+        /**
+         * Invokes the updatePromotion method on the ORM and passes to it
+         * the promise callback functions
+         *
+         * @param req
+         * @param res
+         *
+         * @private
+         */
         updatePromotion: function (req, res) {
             if (!internals.isRequestValidated(req, res)) {
                 return;
@@ -148,11 +230,44 @@
         }
     };
 
+    /**
+     * Methods publicly exposed by internals.exports
+     * @type {Object}
+     */
     var api = {
+        /**
+         * Returns the list of active promotions
+         *
+         * @public
+         */
         getActivePromotions : internals.getActivePromotions,
+
+        /**
+         * Returns the promotion identified by an id
+         *
+         * @public
+         */
         getPromotion : internals.getPromotion,
+
+        /**
+         * Created a new promotion
+         *
+         * @public
+         */
         createPromotion : internals.createPromotion,
+
+        /**
+         * Update an existing promotion
+         *
+         * @public
+         */
         updatePromotion : internals.updatePromotion,
+
+        /**
+         * Delete a promotion
+         *
+         * @public
+         */
         deletePromotion : internals.deletePromotion
     };
 

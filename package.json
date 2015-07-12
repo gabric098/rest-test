@@ -12,8 +12,7 @@
     "mysql": "~2.7.0",
     "sequelize": "~3.3.2",
     "jsender": "~0.0.6",
-    "restify-validator": "~0.3.1",
-    "lodash": "^3.10.0"
+    "restify-validator": "~0.3.1"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",

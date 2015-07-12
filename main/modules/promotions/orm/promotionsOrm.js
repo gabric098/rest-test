@@ -1,15 +1,30 @@
 (function () {
 
+    /**
+     * external resources and requirements
+     */
     var libs = {
         nconf: require('nconf'),
         path: require('path'),
         Sequelize: require("sequelize")
     };
 
+    /**
+     * Private methods and vars
+     */
     var internals = {
         sequelize: null,
         Promotion: null,
 
+        /**
+         * Initializes the sequelize ORM instance. It:
+         * - loads the configuration file
+         * - creates a Sequelize instance pointing to the current db
+         * - defines the promotion model
+         * - add some controls to some specific hooks
+         *
+         * @private
+         */
         init: function () {
             if (!internals.sequelize) {
                 // config
@@ -30,6 +45,15 @@
             }
         },
 
+        /**
+         * Create the Model definition in a declarative way:
+         * - field types and validation
+         * - some scopes
+         *
+         * @returns {Object}
+         *
+         * @private
+         */
         defineOrm: function () {
             return internals.sequelize.define('promotion', {
                 id: libs.Sequelize.INTEGER,
@@ -137,6 +161,15 @@
             });
         },
 
+        /**
+         * Before updating or creating a new promotion, let's make sure that
+         * all the business rules are validated.
+         *
+         * @param promotion
+         * @returns {Object}
+         *
+         * @private
+         */
         preFlightChecks: function (promotion) {
             // check if the dates are coherent (start_date < end_date)
             if (promotion.end_date <= promotion.start_date) {
@@ -167,8 +200,21 @@
 
     };
 
+    /**
+     * Methods publicly exposed by internals.exports
+     * @type {Object}
+     */
     var api = {
 
+        /**
+         * Returns the promotion identified by the id parameter.
+         *
+         * @param id the id of the promotion to retrieve
+         * @param sucCallback success callback
+         * @param errCallback error callback
+         *
+         * @public
+         */
         findPromotionById: function (id, sucCallback, errCallback) {
             internals.init();
             internals.Promotion.findAll({where: {id: id}})
@@ -179,6 +225,15 @@
                 });
         },
 
+        /**
+         * Add a new promotion.
+         *
+         * @param promotion the object representing the promotion to add
+         * @param sucCallback success callback
+         * @param errCallback error callback
+         *
+         * @public
+         */
         createPromotion: function (promotion, sucCallback, errCallback) {
             internals.init();
             internals.Promotion.create(promotion)
@@ -189,6 +244,16 @@
                 });
         },
 
+        /**
+         * Update an existing promotion.
+         *
+         * @param id the id of the promotion to update
+         * @param promotion the object representing the promotion to add
+         * @param sucCallback success callback
+         * @param errCallback error callback
+         *
+         * @public
+         */
         updatePromotion: function (id, promotion, sucCallback, errCallback) {
             internals.init();
             internals.Promotion.update(promotion, {
@@ -203,6 +268,15 @@
                 });
         },
 
+        /**
+         * Removes an existing promotion.
+         *
+         * @param id the id of the promotion to delete
+         * @param sucCallback success callback
+         * @param errCallback error callback
+         *
+         * @public
+         */
         deletePromotionById: function (id, sucCallback, errCallback) {
             internals.init();
             internals.Promotion.destroy({where: {id: id}})
@@ -213,6 +287,14 @@
                 });
         },
 
+        /**
+         * Finds all active promotions.
+         *
+         * @param sucCallback success callback
+         * @param errCallback error callback
+         *
+         * @public
+         */
         findActive: function (sucCallback, errCallback) {
             internals.init();
             internals.Promotion.scope('active').findAll()
