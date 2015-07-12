@@ -62,10 +62,36 @@
             var getActions = libs.router.getGETControllerActions();
             getActions.forEach(internals.setGETEndPoint);
 
+            var postActions = libs.router.getPOSTControllerActions();
+            postActions.forEach(internals.setPOSTEndPoint);
+
+            var putActions = libs.router.getPUTControllerActions();
+            putActions.forEach(internals.setPUTEndPoint);
+
+            var delActions = libs.router.getDELControllerActions();
+            delActions.forEach(internals.setDELEndPoint);
         },
 
         setGETEndPoint : function (action) {
+            console.log('GET');
+                console.log(action);
             internals.server.get(action.endPoint, action.impl);
+        },
+
+        setPOSTEndPoint : function (action) {
+            console.log('POST');
+            console.log(action);
+            internals.server.post(action.endPoint, action.impl);
+        },
+
+        setPUTEndPoint : function (action) {
+            console.log('PUT');
+            console.log(action);
+            internals.server.put(action.endPoint, action.impl);
+        },
+
+        setDELEndPoint : function (action) {
+            internals.server.del(action.endPoint, action.impl);
         }
 
     };

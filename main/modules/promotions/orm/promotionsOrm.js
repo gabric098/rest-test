@@ -137,10 +137,10 @@
             });
         },
 
-        preFlightCheck: function (promotion, options) {
+        preFlightChecks: function (promotion) {
             // check if the dates are coherent (start_date < end_date)
             if (promotion.end_date <= promotion.start_date) {
-                return sequelize.Promise.reject("End date must be greater than start date");
+                return internals.sequelize.Promise.reject("End date must be greater than start date");
             }
 
             // apply custom check:
@@ -157,9 +157,9 @@
                 ]
             }).findAll().then(function (result) {
                 if (result.length > 0) {
-                    return sequelize.Promise.reject("Promotion is overlapping an existing one with the same name");
+                    return internals.sequelize.Promise.reject("Promotion is overlapping an existing one with the same name");
                 } else {
-                    return sequelize.Promise.resolve();
+                    return internals.sequelize.Promise.resolve();
                 }
             });
         }

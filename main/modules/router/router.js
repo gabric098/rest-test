@@ -23,6 +23,15 @@
          */
         getGETControllerActions: function() {
             return libs.promotions.getGETActions();
+        },
+        getPOSTControllerActions: function() {
+            return libs.promotions.getPOSTActions();
+        },
+        getPUTControllerActions: function() {
+            return libs.promotions.getPUTActions();
+        },
+        getDELControllerActions: function() {
+            return libs.promotions.getDELActions();
         }
     };
 
