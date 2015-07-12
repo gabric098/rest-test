@@ -37,7 +37,6 @@
         },
 
         getActivePromotions: function (req, res) {
-            console.log('invoked!');
             if (!internals.isRequestValidated(req, res)) {
                 return;
             }

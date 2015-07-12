@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=development node main/apps/index",
+    "start": "NODE_ENV=development node main/apps/api/api",
     "test": "NODE_ENV=test mocha test/test test"
   },
   "dependencies": {

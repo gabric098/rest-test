@@ -1,12 +1,12 @@
 var request = require('superagent');
 var expect = require('expect.js');
-var server = require('../main/apps/server');
+var server = require('../main/modules/server');
 var dbFixtures = require('./dbFixtures');
 
 var instance;
 before(function(done){
     dbFixtures.truncatePromotionsTable();
-    instance = server.listen(3001);
+    instance = server.start();
     instance.on("listening", function() {
         done();
     })
