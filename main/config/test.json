@@ -12,7 +12,7 @@
   "database": {
     "host": "localhost",
     "database": "dod_test",
-    "port": "8889",
+    "port": "3306",
     "user": "root",
     "password": "root",
     "dialect": "mysql"
